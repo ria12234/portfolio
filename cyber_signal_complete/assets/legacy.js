@@ -1,0 +1,4 @@
+
+const io=('IntersectionObserver' in window)?new IntersectionObserver((entries)=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.1}):null;document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.add('visible'));
+document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(x=>{x.classList.toggle('active',x===btn);x.setAttribute('aria-pressed',String(x===btn))});document.querySelectorAll('[data-category]').forEach(c=>{c.hidden=!(btn.dataset.filter==='all'||c.dataset.category.split(' ').includes(btn.dataset.filter))})}));
+document.querySelectorAll('[data-pointer]').forEach(el=>el.addEventListener('pointermove',e=>{const rect=el.getBoundingClientRect();el.style.setProperty('--pointer-x',((e.clientX-rect.left)/rect.width*100)+'%')}));
